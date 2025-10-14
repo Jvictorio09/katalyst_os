@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ tool.name }} – Katalyst OS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: "#0F172A",
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 hover:opacity-80 transition">
+                        <img src="https://katalyst-crm.com/wp-content/uploads/2024/09/K-1.png" alt="Katalyst" class="h-8 w-8">
+                        <h1 class="text-xl font-bold text-slate-900">Katalyst OS</h1>
+                    </a>
+                    <span class="text-slate-400">/</span>
+                    <span class="text-slate-600">{{ tool.name }}</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-slate-600">
+                        Welcome, <strong>{{ request.user.email }}</strong>
+                    </span>
+                    <a href="{% url 'logout' %}" class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-navy rounded-lg hover:opacity-90 transition">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="p-4 bg-indigo-100 rounded-xl">
+                    <svg class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900">{{ tool.name }}</h1>
+                    <p class="text-slate-600">{{ tool.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-xl font-semibold text-slate-900 mb-4">AI Code Assistant</h2>
+                
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Programming Language</label>
+                        <select class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Python</option>
+                            <option>JavaScript</option>
+                            <option>TypeScript</option>
+                            <option>Java</option>
+                            <option>C++</option>
+                            <option>Go</option>
+                            <option>Rust</option>
+                            <option>PHP</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Code Request</label>
+                        <textarea rows="6" placeholder="Describe what code you need... (e.g., 'Create a function that validates email addresses using regex')" 
+                                  class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Context (Optional)</label>
+                        <textarea rows="3" placeholder="Add any additional context, requirements, or existing code..." 
+                                  class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm"></textarea>
+                    </div>
+                    
+                    <button type="button" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:opacity-90 transition font-medium">
+                        💻 Generate Code with AI
+                    </button>
+                </form>
+                
+                <div class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <h3 class="font-medium text-slate-900 mb-2">Generated Code</h3>
+                    <div class="bg-slate-900 rounded-lg p-4 text-sm">
+                        <pre class="text-green-400"><code>// Generated code will appear here when you click the button above...
+
+// Example output:
+def validate_email(email):
+    import re
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return bool(re.match(pattern, email))</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-xl font-semibold text-slate-900 mb-4">Code Templates</h2>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">API Endpoint</div>
+                            <div class="text-sm text-slate-600">REST API with validation</div>
+                        </button>
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">Database Model</div>
+                            <div class="text-sm text-slate-600">ORM model with relationships</div>
+                        </button>
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">React Component</div>
+                            <div class="text-sm text-slate-600">Functional component with hooks</div>
+                        </button>
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">Unit Test</div>
+                            <div class="text-sm text-slate-600">Test cases with assertions</div>
+                        </button>
+                    </div>
+                </div>
+
+                {% if recent_activities %}
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-xl font-semibold text-slate-900 mb-4">Recent Code Activity</h2>
+                    <div class="space-y-3">
+                        {% for activity in recent_activities %}
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <div class="p-2 bg-indigo-100 rounded-lg">
+                                <svg class="h-4 w-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-slate-900">{{ activity.text }}</p>
+                                <p class="text-sm text-slate-500">{{ activity.created_at|timesince }} ago</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-sm text-slate-600">
+                © 2025 Katalyst OS. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Code Assistant tool loaded');
+        });
+    </script>
+</body>
+</html>

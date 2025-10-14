@@ -1,0 +1,7 @@
+{% if error %}
+  <div class="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3">{{ error }}</div>
+{% elif content %}
+  <article class="prose max-w-none whitespace-pre-wrap">{{ content }}</article>
+{% else %}
+  <div class="text-sm text-slate-500">No content returned.</div>
+{% endif %}

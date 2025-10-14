@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ tool.name }} – Katalyst OS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: "#0F172A",
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 hover:opacity-80 transition">
+                        <img src="https://katalyst-crm.com/wp-content/uploads/2024/09/K-1.png" alt="Katalyst" class="h-8 w-8">
+                        <h1 class="text-xl font-bold text-slate-900">Katalyst OS</h1>
+                    </a>
+                    <span class="text-slate-400">/</span>
+                    <span class="text-slate-600">{{ tool.name }}</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-slate-600">
+                        Welcome, <strong>{{ request.user.email }}</strong>
+                    </span>
+                    <a href="{% url 'logout' %}" class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-navy rounded-lg hover:opacity-90 transition">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="p-4 bg-blue-100 rounded-xl">
+                    <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900">{{ tool.name }}</h1>
+                    <p class="text-slate-600">{{ tool.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-xl font-semibold text-slate-900 mb-4">AI Video Generator</h2>
+                
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Video Description</label>
+                        <textarea rows="4" placeholder="Describe the video you want to create... (e.g., 'A 30-second product demo showing features and benefits')" 
+                                  class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Duration</label>
+                            <select class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option>15 seconds</option>
+                                <option>30 seconds</option>
+                                <option>60 seconds</option>
+                                <option>2 minutes</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Style</label>
+                            <select class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option>Professional</option>
+                                <option>Animated</option>
+                                <option>Cinematic</option>
+                                <option>Minimalist</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:opacity-90 transition font-medium">
+                        🎬 Generate Video with AI
+                    </button>
+                </form>
+                
+                <div class="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                    <h3 class="font-medium text-slate-900 mb-2">Generated Video</h3>
+                    <div class="aspect-video bg-slate-100 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center">
+                        <div class="text-center text-slate-500">
+                            <svg class="h-12 w-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764" />
+                            </svg>
+                            <p class="text-sm">Generated video will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-xl font-semibold text-slate-900 mb-4">Quick Templates</h2>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">Product Demo</div>
+                            <div class="text-sm text-slate-600">Showcase product features</div>
+                        </button>
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">Social Media</div>
+                            <div class="text-sm text-slate-600">Engaging social content</div>
+                        </button>
+                        <button class="text-left p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                            <div class="font-medium text-slate-900">Tutorial</div>
+                            <div class="text-sm text-slate-600">Educational content</div>
+                        </button>
+                    </div>
+                </div>
+
+                {% if recent_activities %}
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-xl font-semibold text-slate-900 mb-4">Recent Video Activity</h2>
+                    <div class="space-y-3">
+                        {% for activity in recent_activities %}
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <div class="p-2 bg-blue-100 rounded-lg">
+                                <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-slate-900">{{ activity.text }}</p>
+                                <p class="text-sm text-slate-500">{{ activity.created_at|timesince }} ago</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-sm text-slate-600">
+                © 2025 Katalyst OS. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Video Generator tool loaded');
+        });
+    </script>
+</body>
+</html>
