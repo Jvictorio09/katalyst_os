@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Katalyst OS – AI Tools Hub</title>
+
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: "#0F172A", // deep slate/navy
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-navy relative text-slate-900">
+    <!-- dotted backdrop -->
+    <div
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(255,255,255,.06)_2px,transparent_2px)] [background-size:18px_18px]">
+    </div>
+
+    <!-- page container -->
+    <div class="relative mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-16">
+        <div class="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-2xl bg-white/90 backdrop-blur">
+
+            <!-- left: form -->
+            <div class="p-8 md:p-12">
+                <div class="mx-auto max-w-md">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <img src="https://katalyst-crm.com/wp-content/uploads/2024/09/K-1.png" alt="Katalyst"
+                            class="h-10 w-10">
+                        <h1 class="text-2xl font-semibold text-slate-900">Katalyst OS – AI Tools Hub</h1>
+                    </div>
+
+                    <h2 class="text-3xl font-extrabold text-slate-900 text-center">Welcome Back</h2>
+                    <p class="mt-2 text-center text-slate-500">
+                        Access your personal AI workspace — everything you need, all in one place.
+                    </p>
+
+                    <form method="POST" action="{% url 'login' %}" class="mt-8 space-y-4">
+                        {% csrf_token %}
+
+                        {% if error %}
+                        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Email -->
+                        <label class="block text-sm font-medium text-slate-700">Email</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 8h18a2 2 0 002-2V8a2 2 0 00-2-2H3a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                </svg>
+                            </span>
+                            <input type="email" name="username" placeholder="you@example.com" required
+                                class="w-full rounded-lg border border-slate-200 bg-white pl-10 pr-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600" />
+                        </div>
+
+                        <!-- Password -->
+                        <label class="block text-sm font-medium text-slate-700 mt-2">Password</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M16 11V7a4 4 0 10-8 0v4m-2 0h12m-9 0v7a2 2 0 002 2h2a2 2 0 002-2v-7" />
+                                </svg>
+                            </span>
+                            <input id="pwd" type="password" name="password" placeholder="••••••••" required
+                                class="w-full rounded-lg border border-slate-200 bg-white pl-10 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600" />
+                            <button type="button" id="togglePwd"
+                                class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
+                                aria-label="Toggle password">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+                                    <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Sign in -->
+                        <button type="submit" class="w-full mt-3 rounded-lg py-2.5 font-semibold text-white shadow transition
+              bg-gradient-to-r from-purple-600 to-[color:var(--tw-navy,#0F172A)] hover:opacity-95">
+                            Sign In
+                        </button>
+
+                        <div class="flex items-center justify-between text-sm mt-2">
+                            <a href="#" class="text-purple-600 hover:underline">Forgot your password?</a>
+                            <span class="text-slate-400">Need help?</span>
+                        </div>
+
+                        <div class="mt-6 space-y-3 text-sm text-slate-600">
+                            <p>We’ve sent your login details to your registered email. Check your spam folder if you
+                                can’t find it.</p>
+                            <p>Or, use the <a class="text-purple-600 hover:underline" href="#">Reset Password</a> option
+                                with your same email.</p>
+                            <p>Still need help? Reach out to <a href="mailto:support@katalystos.com"
+                                    class="text-purple-600 hover:underline">support@katalystos.com</a>.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- right: hero -->
+            <div class="relative min-h-[520px] hidden md:block">
+                <img src="https://katalyst-crm.com/wp-content/uploads/2024/10/Katalyst-Project-2.1.png" alt=""
+                    class="absolute inset-0 h-full w-full object-cover" />
+                <div class="absolute inset-0 bg-navy/40"></div>
+                <div class="absolute left-10 right-10 bottom-12 text-white drop-shadow">
+                    <h3 class="text-4xl font-extrabold leading-tight">Welcome to Katalyst OS</h3>
+                    <p class="mt-3 max-w-md text-white/90">
+                        Your central hub for AI tools — from email copilot to image and video generation, all in one
+                        sleek platform.
+                    </p>
+                </div>
+                <div class="absolute inset-0 rounded-2xl ring-1 ring-black/10 pointer-events-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Question Mark Button -->
+    <button id="supportToggle"
+        class="fixed right-6 bottom-6 w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-[color:var(--tw-navy,#0F172A)] text-white shadow-2xl hover:scale-110 transition-transform duration-200 flex items-center justify-center text-3xl font-bold z-50"
+        aria-label="Open Support">
+        ?
+    </button>
+
+    <!-- Floating Support widget -->
+    <div id="supportCard"
+        class="hidden fixed right-6 bottom-6 md:right-10 md:bottom-10 w-[360px] max-w-[92vw] rounded-2xl bg-white/95 backdrop-blur border border-white/60 shadow-2xl z-50">
+        <div
+            class="px-5 py-3 rounded-t-2xl bg-gradient-to-r from-purple-600 to-[color:var(--tw-navy,#0F172A)] text-white flex items-center justify-between">
+            <h4 class="font-semibold">Support</h4>
+            <button id="closeSupport" class="text-white/90 hover:text-white" aria-label="Close">✕</button>
+        </div>
+        <div class="p-5 space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-700">Email Address *</label>
+                <input type="email" placeholder="your@email.com"
+                    class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700">Message *</label>
+                <textarea rows="3" placeholder="Describe your issue or question..."
+                    class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600"></textarea>
+            </div>
+
+            <div class="flex gap-3">
+                <button type="button"
+                    class="flex-1 rounded-xl border-2 border-dashed border-slate-300 px-3 py-2 text-sm text-slate-600">📎
+                    Upload File</button>
+                <button type="button"
+                    class="flex-1 rounded-xl border-2 border-dashed border-slate-300 px-3 py-2 text-sm text-slate-600">🖼️
+                    Screenshot</button>
+            </div>
+
+            <button type="button"
+                class="w-full rounded-xl py-3 font-semibold text-white bg-gradient-to-r from-purple-600 to-[color:var(--tw-navy,#0F172A)] hover:opacity-95">
+                Send Message
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        const pwdBtn = document.getElementById('togglePwd');
+        if (pwdBtn) {
+            pwdBtn.addEventListener('click', () => {
+                const input = document.getElementById('pwd');
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        }
+
+        // Support widget toggle
+        const supportToggle = document.getElementById('supportToggle');
+        const supportCard = document.getElementById('supportCard');
+        const closeSupport = document.getElementById('closeSupport');
+
+        if (supportToggle && supportCard && closeSupport) {
+            supportToggle.addEventListener('click', () => {
+                supportCard.classList.remove('hidden');
+                supportToggle.classList.add('hidden');
+            });
+            closeSupport.addEventListener('click', () => {
+                supportCard.classList.add('hidden');
+                supportToggle.classList.remove('hidden');
+            });
+        }
+    </script>
+</body>
+
+</html>
